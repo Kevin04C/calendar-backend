@@ -1,9 +1,15 @@
-import { isValid } from "date-fns";
+import moment from 'moment'
 
 export const validDate = (value) => {
-  if (!value) return false;
+  if (!value) {
+    return false;
+  }
 
-  if (!isValid(value)) return false;
-  
-  return true;
+  const fecha = moment(value);
+  if (fecha.isValid()) {
+    return true;
+  } else {
+    return false;
+  }
 };
+
