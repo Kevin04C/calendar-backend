@@ -1,5 +1,4 @@
-import { json, request, response } from "express";
-import { body } from "express-validator";
+import { request, response } from "express";
 import { Event } from "../models/Event.js";
 
 export const getEvents = async (req = request, res = response) => {
@@ -57,13 +56,14 @@ export const updateEvent = async (req = request, res = response) => {
       
       return res.status(401).json({
         ok: false,
-        msg: "No tiene los permisos para eliminar este evento"
+        msg: "No tiene los permisos para editar este evento"
       })
 
     }
-    const newEvent = {...req.body};
+    const newEvent = {...req.body, user: {_id: uid }};
     
-      
+    console.log({_id: uid, name: req.name});
+    
     const updatedEvent = await Event.findByIdAndUpdate(id, newEvent, {new: true});
 
 
